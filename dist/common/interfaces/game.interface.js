@@ -29,6 +29,8 @@ var GamePhase;
     GamePhase["RESPONSE"] = "response";
     GamePhase["CHALLENGE"] = "challenge";
     GamePhase["REVEAL"] = "reveal";
+    GamePhase["EXCHANGE"] = "exchange";
+    GamePhase["INVESTIGATE"] = "investigate";
     GamePhase["ENDED"] = "ended";
 })(GamePhase || (exports.GamePhase = GamePhase = {}));
 var ResponseType;

@@ -13,5 +13,10 @@ export declare class RoomsService {
     setPlayerReady(code: string, playerId: string, isReady: boolean): Room;
     setPlayerConnected(code: string, playerId: string, isConnected: boolean): Room;
     startGame(code: string): GameState;
+    processAction(code: string, action: any): GameState;
+    processResponse(code: string, playerId: string, response: 'allow' | 'challenge' | 'block', blockCharacter?: any): GameState;
+    processExchange(code: string, playerId: string, keptCards: any[]): GameState;
+    processInvestigate(code: string, playerId: string, forceExchange: boolean): GameState;
+    processReveal(code: string, playerId: string, influenceIndex: number): GameState;
     private generateRoomCode;
 }

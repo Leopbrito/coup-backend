@@ -14,5 +14,24 @@ export declare class RoomsGateway implements OnGatewayConnection, OnGatewayDisco
         player: Player;
     }, client: Socket): void;
     handleGameAction(actionData: any, client: Socket): void;
-    handleGameResponse(responseData: any, client: Socket): void;
+    handleGameResponse(responseData: {
+        playerId: string;
+        response: 'allow' | 'challenge' | 'block';
+        blockCharacter?: any;
+    }, client: Socket): void;
+    handleGameExchange(client: Socket, data: {
+        roomCode: string;
+        playerId: string;
+        keptCards: any[];
+    }): void;
+    handleGameInvestigateDecision(client: Socket, data: {
+        roomCode: string;
+        playerId: string;
+        forceExchange: boolean;
+    }): void;
+    handleGameReveal(revealData: {
+        playerId: string;
+        influenceIndex: number;
+    }, client: Socket): void;
+    private broadcastState;
 }

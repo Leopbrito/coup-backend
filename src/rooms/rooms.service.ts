@@ -114,6 +114,41 @@ export class RoomsService {
     return gameState;
   }
 
+  processAction(code: string, action: any): GameState {
+    let gameState = this.getGameState(code);
+    gameState = this.gameService.performAction(gameState, action);
+    this.games.set(code, gameState);
+    return gameState;
+  }
+
+  processResponse(code: string, playerId: string, response: 'allow' | 'challenge' | 'block', blockCharacter?: any): GameState {
+    let gameState = this.getGameState(code);
+    gameState = this.gameService.respondToAction(gameState, playerId, response, blockCharacter);
+    this.games.set(code, gameState);
+    return gameState;
+  }
+
+  processExchange(code: string, playerId: string, keptCards: any[]): GameState {
+    let gameState = this.getGameState(code);
+    gameState = this.gameService.resolveExchange(gameState, playerId, keptCards);
+    this.games.set(code, gameState);
+    return gameState;
+  }
+
+  processInvestigate(code: string, playerId: string, forceExchange: boolean): GameState {
+    let gameState = this.getGameState(code);
+    gameState = this.gameService.resolveInvestigate(gameState, playerId, forceExchange);
+    this.games.set(code, gameState);
+    return gameState;
+  }
+
+  processReveal(code: string, playerId: string, influenceIndex: number): GameState {
+    let gameState = this.getGameState(code);
+    gameState = this.gameService.revealInfluence(gameState, playerId, influenceIndex);
+    this.games.set(code, gameState);
+    return gameState;
+  }
+
   private generateRoomCode(): string {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';

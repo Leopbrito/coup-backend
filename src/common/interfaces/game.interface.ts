@@ -25,6 +25,8 @@ export enum GamePhase {
   RESPONSE = 'response',
   CHALLENGE = 'challenge',
   REVEAL = 'reveal',
+  EXCHANGE = 'exchange',
+  INVESTIGATE = 'investigate',
   ENDED = 'ended',
 }
 
@@ -50,6 +52,31 @@ export interface Player {
   isConnected: boolean;
 }
 
+export interface ActionData {
+  type: ActionType;
+  actorId: string;
+  targetId?: string;
+  claimedCharacter?: CharacterType;
+  cost?: number;
+}
+
+export interface PendingAction {
+  action: ActionData;
+  timestamp: number;
+  respondedPlayers: string[];
+}
+
+export interface ChallengeData {
+  challengerId: string;
+  targetId: string;
+  claimedCharacter: CharacterType;
+}
+
+export interface BlockData {
+  blockerId: string;
+  claimedCharacter: CharacterType;
+}
+
 export interface RoomSettings {
   maxPlayers: number;
   includeInquisitor: boolean;
@@ -68,10 +95,12 @@ export interface GameState {
   currentPlayerId: string | null;
   deck: CharacterType[];
   treasury: number;
-  pendingAction: any | null;
-  pendingChallenge: any | null;
-  pendingBlock: any | null;
+  pendingAction: PendingAction | null;
+  pendingChallenge: ChallengeData | null;
+  pendingBlock: BlockData | null;
   revealingPlayerId: string | null;
+  exchangeOptions: CharacterType[] | null;
+  pendingInvestigation: { targetId: string; cardIndex: number; character: CharacterType } | null;
   winner: Player | null;
   includeInquisitor: boolean;
 }
